@@ -7,7 +7,12 @@ import { makeWASocket, useMultiFileAuthState, Browsers, fetchLatestBaileysVersio
 import pino from 'pino';
 import path from 'path';
 import fs from 'fs';
+import { fileURLToPath } from 'url'; // 1. Added this import
 import { loadBotLogic } from './botLoader';
+
+// 2. Added these two lines to define __dirname in ES Modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 7700;
@@ -15,6 +20,8 @@ const logger = pino({ level: 'silent' });
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'panel-site')));
+
+// ... leave the rest of your file exactly as it is ...
 
 // ============================================
 // THE MULTI-SESSION MANAGER
